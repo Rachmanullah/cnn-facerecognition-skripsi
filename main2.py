@@ -1,5 +1,5 @@
 import time
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response, stream_with_context
 import os
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -213,6 +213,10 @@ def cnn_model(input_shape, num_classes):
 @app.route('/public/<path:filename>', methods=['GET'])
 def serve_public_file(filename):
     return send_from_directory('public', filename)
+
+@app.route('/', methods=['GET'])
+def home():
+    return 'hallo sobat'
 
 @app.route('/register', methods=['POST'])
 def register():

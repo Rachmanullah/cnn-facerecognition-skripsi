@@ -25,32 +25,22 @@ model = load_model('D:/Kuliah/skripsi/face-recognition/python-face/model/model_n
 # model = load_model('D:/Kuliah/skripsi/face-recognition/python-face/model_cnn/model_cnn_face_recognition-test3.keras')
 # model = load_model('D:/Kuliah/skripsi/face-recognition/python-face/model_cnn/model_cnn_face_recognition-testAPI.keras')
 # model = load_model('D:/Kuliah/skripsi/face-recognition/python-face/model_cnn/model_cnn_face_recognition-testAPIWeb.keras')
+JSON_PATH = os.path.abspath("public/nim_labels.json")
 
 print("[INFO] Model successfully loaded...")
 
 # Path ke file JSON relatif terhadap folder python-face
-json_path = os.path.abspath(os.path.join(
-    os.path.dirname(__file__),  # Lokasi file Python ini
-    "../front-facerecognition/public/nim_labels.json"
-))
-
-# Fungsi untuk membaca label dari file JSON
-def load_labels(json_path):
-    if not os.path.exists(json_path):
-        print(f"[ERROR] File JSON tidak ditemukan: {json_path}")
+def load_labels(JSON_PATH):
+    if not os.path.exists(JSON_PATH):
         return []
-
     try:
-        with open(json_path, "r") as file:
+        with open(JSON_PATH, "r") as file:
             labels = json.load(file)
-            print(f"[INFO] Label berhasil dimuat: {labels}")
             return labels
     except json.JSONDecodeError as e:
-        print(f"[ERROR] Gagal memuat file JSON: {e}")
         return []
 
-# Memuat label dari file JSON
-labels = load_labels(json_path)
+labels = load_labels(JSON_PATH)
 
 # Global variables for threading
 frame = None
